@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import LeftSide from '@/components/ui/LeftSide';
 import { InputUserIcon, LocationIcon, MobileIcon } from '@/assets/sidebar';
-// import { contactInfo } from '@/Services/auth';
+import { contactInfo } from '@/Services/auth';
 
 type Props=Record<string, never>
 
@@ -88,17 +88,17 @@ const RegisterPage3: React.FC<Props> = () => {
 
 
             
-    //     try {
-    //         const response=await contactInfo({primaryContactNumber,secondaryContactNumber,address,primaryUserName});
-    //         console.log(response);
-    //         navigate("./account-activated")
+        try {
+            const response=await contactInfo({primaryContactNumber,secondaryContactNumber,address,primaryUserName});
+            console.log(response);
+            navigate("./account-activated")
             
-    //     } catch (error) {
-    //         console.log("error updating contactInfo",error)
+        } catch (error) {
+            console.log("error updating contactInfo",error)
             
-    //     }
-    // }
-    // };
+        }
+    }
+    };
 
 
 
@@ -106,18 +106,18 @@ const RegisterPage3: React.FC<Props> = () => {
 
 
             // Handle the form submission logic here
-            const registrationDataContact={
-                primaryContactNumber,
-                secondaryContactNumber,
-                address,
-                primaryUserName,
-            };
-            // In a real application, you would proceed to the next step or submit the data.
-            localStorage.setItem("smartlaw_registration", JSON.stringify(registrationDataContact));
-            console.log("saved to local storage ",registrationDataContact)
-            navigate("/account-activated");
+        //     const registrationDataContact={
+        //         primaryContactNumber,
+        //         secondaryContactNumber,
+        //         address,
+        //         primaryUserName,
+        //     };
+        //     // In a real application, you would proceed to the next step or submit the data.
+        //     localStorage.setItem("smartlaw_registration", JSON.stringify(registrationDataContact));
+        //     console.log("saved to local storage ",registrationDataContact)
+        //     navigate("/account-activated");
 
-        }}
+        // }}
 
   
 

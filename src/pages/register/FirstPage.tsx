@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select"
 import { BuildingIcon,PenIcon } from '@/assets/sidebar';
 import LeftSide from '@/components/ui/LeftSide';
-// import { registerTenant } from '@/Services/auth';
+import { registerTenant } from '@/Services/auth';
 
 
 type Props = Record<string, never>;
@@ -77,31 +77,31 @@ const RegisterPage: React.FC<Props> = () => {
     }
 
 
-//       // Handle the registration logic here
-//         try{
-//             const response= await registerTenant({organizationName,accountType,passportNumber,licenseIssuingAuthority,barLicenseNumber});
-//             console.log(response);
-//              navigate("/sign-up");
-//         }catch (error)
-//         {
-//             console.error("error registering",error);
-//         }
+      // Handle the registration logic here
+        try{
+            const response= await registerTenant({organizationName,accountType,passportNumber,licenseIssuingAuthority,barLicenseNumber});
+            console.log(response);
+             navigate("/sign-up");
+        }catch (error)
+        {
+            console.error("error registering",error);
+        }
 
-// };
+};
 
-        const registrationData={
-            organizationName,
-            passportNumber,
-            barLicenseNumber,
-            licenseIssuingAuthority,
-            accountType
-        };
-         localStorage.setItem('smartlaw_registration', JSON.stringify(registrationData));
+    //     const registrationData={
+    //         organizationName,
+    //         passportNumber,
+    //         barLicenseNumber,
+    //         licenseIssuingAuthority,
+    //         accountType
+    //     };
+    //      localStorage.setItem('smartlaw_registration', JSON.stringify(registrationData));
 
-    console.log('Saved to localStorage:', registrationData);
+    // console.log('Saved to localStorage:', registrationData);
 
-        navigate("/sign-up");
-    };
+    //     navigate("/sign-up");
+    // };
 
     const handleSignIn = () => {
         // Handle sign in navigation

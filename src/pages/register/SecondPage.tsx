@@ -4,7 +4,7 @@ import  {Button}  from '@/components/ui/button';
 import { cn } from '@/lib/utils'; // For conditional class names
 import { useNavigate } from 'react-router-dom';
 import LeftSide from '@/components/ui/LeftSide';
-// import { signupUser } from '@/Services/auth';
+import { signupUser } from '@/Services/auth';
 import { InputUserIcon, LockIcon } from '@/assets/sidebar';
 
 type Props=Record<string,never>
@@ -75,34 +75,34 @@ const RegisterPage2: React.FC<Props> = () => {
     const handleNext =async (event: React.FormEvent) => {
         event.preventDefault();
         if (validateForm()) 
-    //     {
-    //         try{
-    //         const response= await signupUser({email,password,confirmPassword});
-    //         console.log(response);
-    //         navigate("./contact-info");
+        {
+            try{
+            const response= await signupUser({email,password,confirmPassword});
+            console.log(response);
+            navigate("./contact-info");
 
-    //     }catch(error)
-    //     {
-    //      console.error("error signing up",error)
-    //     }   
-    // };};
+        }catch(error)
+        {
+         console.error("error signing up",error)
+        }   
+    };};
        
 
        // Handle the registration logic here
-          {
-            const registrationDataSignUp={
-                email,
-                password,
-                confirmPassword,
-            };
-            // In a real application, you would proceed to the next step.
-            localStorage.setItem("smartlaw_registration", JSON.stringify(registrationDataSignUp));
-            console.log("saved to local storage",registrationDataSignUp)
+        //   {
+        //     const registrationDataSignUp={
+        //         email,
+        //         password,
+        //         confirmPassword,
+        //     };
+        //     // In a real application, you would proceed to the next step.
+        //     localStorage.setItem("smartlaw_registration", JSON.stringify(registrationDataSignUp));
+        //     console.log("saved to local storage",registrationDataSignUp)
 
-            navigate("/contact-info")
+        //     navigate("/contact-info")
 
-          }  
-        }
+        //   }  
+        // }
     
 
     

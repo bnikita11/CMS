@@ -28,7 +28,7 @@ const RegisterCompletePage = () => {
    <div className="flex flex-col lg:flex-row h-screen w-full overflow-auto ">
      <div className="hidden lg:block flex-[1]"> <LeftSide/></div>
 
-      <div className="flex-[1.95] flex flex-col justify-center items-center w-full max-w-[838px] mx-auto px-4 py-8 bg-[#E6EBFA]"> 
+      <div className="flex flex-[1.95] flex-col justify-center items-center w-full max-w-full mx-auto px-4 py-8 bg-[#E6EBFA]"> 
           < div className="success-card ">
             <div className='flex justify-center flex-col items-center'>
              <h2 className="text-2xl font-medium font-poppins text-[#2B5BD4] mb-2">Thanks for signing up!</h2>
