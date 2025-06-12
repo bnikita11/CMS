@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'; // For conditional class names
 import { useNavigate } from 'react-router-dom';
 
 import LeftSide from '@/components/ui/LeftSide';
-import { InputUserIcon, LocationIcon, MobileIcon } from '@/assets/sidebar';
+import { LocationIcon, MobileIcon } from '@/assets/sidebar';
 import { contactInfo } from '@/Services/auth';
 
 type Props=Record<string, never>
@@ -14,11 +14,9 @@ const RegisterPage3: React.FC<Props> = () => {
     const [primaryContactNumber, setPrimaryContactNumber] = useState('');
     const [secondaryContactNumber, setSecondaryContactNumber] = useState('');
     const [address, setAddress] = useState('');
-    const [primaryUserName, setPrimaryUserName] = useState('');
     const [primaryContactNumberError, setPrimaryContactNumberError] = useState('');
     const [secondaryContactNumberError, setSecondaryContactNumberError] = useState('');
     const [addressError, setAddressError] = useState('');
-    const [primaryUserNameError, setPrimaryUserNameError] = useState('');
     const navigate=useNavigate();
 
     const handlePrimaryContactNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,17 +34,13 @@ const RegisterPage3: React.FC<Props> = () => {
         setAddressError('');
     };
 
-    const handlePrimaryUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPrimaryUserName(event.target.value);
-        setPrimaryUserNameError('');
-    };
+   
 
     const validateForm = () => {
         let isValid = true;
         let primaryContactNumberErrorMessage = '';
         let secondaryContactNumberErrorMessage = '';
         let addressErrorMessage = '';
-        let primaryUserNameErrorMessage = '';
 
         // Primary Contact Number Validation
         if (!primaryContactNumber.trim()) {
@@ -72,13 +66,6 @@ const RegisterPage3: React.FC<Props> = () => {
         }
         setAddressError(addressErrorMessage);
 
-        // Primary User's Name Validation
-        if (!primaryUserName.trim()) {
-            primaryUserNameErrorMessage = "Primary User's Name is required";
-            isValid = false;
-        }
-        setPrimaryUserNameError(primaryUserNameErrorMessage);
-
         return isValid;
     };
 
@@ -89,7 +76,7 @@ const RegisterPage3: React.FC<Props> = () => {
 
             
         try {
-            const response=await contactInfo({primaryContactNumber,secondaryContactNumber,address,primaryUserName});
+            const response=await contactInfo({primaryContactNumber,secondaryContactNumber,address});
             console.log(response);
             navigate("./account-activated")
             
@@ -186,25 +173,7 @@ const RegisterPage3: React.FC<Props> = () => {
                             />
                             {addressError && <p className="text-red-500 text-sm mt-1">{addressError}</p>}
                         </div>
-                        <div className="input-group relative">
-                            <label htmlFor="primaryUserName" className="block text-sm font-medium text-gray-900">Primary User's Name</label>
-                            <span className='absolute inset-y-0 left-0 pl-3 pt-4 flex items-center text-gray-500'>
-                            <InputUserIcon/>
-                            </span>
-                            <Input
-                                type="text"
-                                id="primaryUserName"
-                                value={primaryUserName}
-                                onChange={handlePrimaryUserNameChange}
-                                placeholder="Ram Bahadur"
-                                required
-                                className={cn(
-                                    "w-full h-[48px] pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
-                                    primaryUserNameError && "border-red-500 focus:ring-red-500 focus:border-red-500"
-                                )}
-                            />
-                            {primaryUserNameError && <p className="text-red-500 text-sm mt-1">{primaryUserNameError}</p>}
-                        </div>
+                       
                             <Button type="submit" className="w-full h-[48px] py-2.5 bg-[#1B5BFF] text-white rounded-md text-lg font-semibold cursor-pointer transition-colors duration-200 hover:bg-blue-700 mt-6">
                                 Submit →
                             </Button>

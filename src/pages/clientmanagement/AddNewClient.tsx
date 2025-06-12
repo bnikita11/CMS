@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils'; // For conditional classNames
 import {validateNepalesePassport} from "@/lib/utils/Validation";
+import { addClient } from '@/Services/auth';
 
 
 interface ClientForm {
@@ -127,54 +128,107 @@ const AddNewClientCard: React.FC<AddNewClientCardProps> = ({ onClose, onClientAd
         return isValid;
     };
 
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+
+    //     if (!validateForm()) {
+    //         return;
+    //     }
+
+    //     setIsLoading(true);
+    //     try {
+    //         console.log('Form Data:', formData);
+    //         // Simulate an API call
+    //         await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    //         const newClientResponseData = {
+    //             fullName: formData.fullName,
+    //             email: formData.email,
+    //             accountType: formData.accountType,
+    //             status: 'Active',
+    //         };
+
+    //         onClientAdded(newClientResponseData); // Inform parent about new client
+    //         // onClose(); // <--- Modal is closed by parent after onClientAdded
+    //         alert('Client added successfully!');
+
+    //         // Reset form data after successful submission
+    //         setFormData({
+    //           fullName: "",
+    // email: "",
+    // phone: "",
+    // accountType: "",
+    // description: "",
+    // organizationName:"",
+    // passportNumber:"",
+    // country:"",
+    // gender:"",
+    // city:"",
+
+    // });
+    
+    //     setFormErrors({});
+    //     } catch (error) {
+    //         console.error('Failed to add user:', error);
+    //         alert('Failed to add user. Please try again.');
+    //     } finally {
+    //         setIsLoading(false);
+    //     }
+    // };
+
+
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        if (!validateForm()) {
-            return;
-        }
+    if (!validateForm()) return;
 
-        setIsLoading(true);
-        try {
-            console.log('Form Data:', formData);
-            // Simulate an API call
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsLoading(true);
+    try {
+        const response = await addClient({
+        clientName: formData.fullName,
+        email: formData.email,
+        accountType: formData.accountType,
+        organizationName: formData.organizationName,
+        passportNumber: formData.passportNumber,
+        status: 'Active', // default or form value
+        recentCase: 'N/A' // or get from form if needed
+        });
 
-            const newClientResponseData = {
-                fullName: formData.fullName,
-                email: formData.email,
-                accountType: formData.accountType,
-                status: 'Active',
-            };
+        console.log('Client added:', response);
 
-            onClientAdded(newClientResponseData); // Inform parent about new client
-            // onClose(); // <--- Modal is closed by parent after onClientAdded
-            alert('Client added successfully!');
+        const newClientResponseData = {
+            fullName: formData.fullName,
+            email: formData.email,
+            accountType: formData.accountType,
+            status: 'Active',
+        };
 
-            // Reset form data after successful submission
-            setFormData({
-              fullName: "",
-    email: "",
-    phone: "",
-    accountType: "",
-    description: "",
-    organizationName:"",
-    passportNumber:"",
-    country:"",
-    gender:"",
-    city:"",
+        onClientAdded(newClientResponseData); // Pass to parent
+        alert('Client added successfully!');
 
-    });
+        // Reset the form
+        setFormData({
+            fullName: "",
+            email: "",
+            phone: "",
+            accountType: "",
+            description: "",
+            organizationName: "",
+            passportNumber: "",
+            country: "",
+            gender: "",
+            city: "",
+        });
+
+    } catch (error) {
+        console.error('Error adding client:', error);
+        alert('Failed to add client. Please try again.');
+    } finally {
+        setIsLoading(false);
+    }
+};
 
 
-        setFormErrors({});
-        } catch (error) {
-            console.error('Failed to add user:', error);
-            alert('Failed to add user. Please try again.');
-        } finally {
-            setIsLoading(false);
-        }
-    };
 
     return (
         <div className="h-[500px] overflow-y-auto p-4 border">

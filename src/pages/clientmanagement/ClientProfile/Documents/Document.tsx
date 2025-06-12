@@ -363,12 +363,12 @@ const DocumentsTab: React.FC<DocumentsTabProps> = ({ clientId, caseId }) => {
                     />
                 </div>
                 <div className="flex space-x-3">
-                    <Button onClick={handleExportDocuments} variant="outline">Export</Button>
-                    <Button onClick={handlePrintDocuments} variant="outline">Print</Button>
+                    <Button className='text-[#2B5BD4]' onClick={handleExportDocuments} variant="outline">Export</Button>
+                    <Button className="text-[#2B5BD4]" onClick={handlePrintDocuments} variant="outline">Print</Button>
                     {/* DialogTrigger wraps the button to open the modal */}
                     <Dialog open={isUploadModalOpen} onOpenChange={setIsUploadModalOpen}>
                         <DialogTrigger asChild>
-                            <Button onClick={handleUploadDocument}>Upload Document</Button>
+                            <Button className="text-[#2B5BD4]" onClick={handleUploadDocument} variant="outline">Upload</Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-[600px] p-6"> {/* Increased width for better layout */}
                             <DialogHeader>

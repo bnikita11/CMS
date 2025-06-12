@@ -138,7 +138,7 @@ return (
 <Sidebar isSidebarOpen={isSidebarOpen} />
 <main
 className={cn(
-'flex-1 p-6 bg-gray-50 transition-all duration-300', // Changed bg to gray-50 for subtle distinction
+'flex-1 pl-6  transition-all duration-300', // Changed bg to gray-50 for subtle distinction
 isSidebarOpen ? 'ml-64' : 'ml-0'
 )}
 style={{
@@ -157,7 +157,7 @@ logoutHandler={logoutHandler}
 onGlobalSearch={handleGlobalSearch}
 />
 {/* The Outlet renders the specific page component based on the current route */}
-<div className="flex-1 bg-white p-6 rounded-lg shadow-md">
+<div className="flex-1 bg-gray-500 rounded-lg shadow-md">
 <Outlet />
 </div>
 </main>

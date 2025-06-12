@@ -15,11 +15,13 @@ const RegisterCompletePage = () => {
            toast.success('Account activated successfully!', {
            id: 'account-activated',
           });
+           sessionStorage.removeItem("signupToken");
         },[])
        
 
 
         const HandleSignIn=()=>{
+          sessionStorage.removeItem("signupToken");
           navigate("/login");
 
         }

@@ -70,7 +70,7 @@ const ClientManagementPage: React.FC = () => {
 
     // State for pagination
     const [currentPage, setCurrentPage] = useState(1);
-    const [clientsPerPage] = useState(5); // You can adjust this number
+    const [clientsPerPage] = useState(6); // You can adjust this number
 
     // Effect to filter clients based on search query
     useEffect(() => {
@@ -136,9 +136,9 @@ const ClientManagementPage: React.FC = () => {
     };
 
     // Callback function to add a new client from the AddNewClientCard form
-    const handleClientAdded = (newClientData: { fullName: string; email: string; accountType: string; status: string; }) => {
+    const handleClientAdded = async (newClientData: { fullName: string; email: string; accountType: string; status: string; }) => {
         // Generate a new unique ID (simple increment, consider UUIDs for production)
-        const newClientId = (clients.length > 0 ? Math.max(...clients.map(c => parseInt(c.id, 10))) + 1 : 1).toString();
+            const newClientId = (clients.length > 0 ? Math.max(...clients.map(c => parseInt(c.id, 10))) + 1 : 1).toString();
 
         const newClient: Client = {
             id: newClientId,
@@ -147,7 +147,9 @@ const ClientManagementPage: React.FC = () => {
             status: newClientData.status || 'Active',
             recentCase: 'N/A', // Default for new clients, adjust if needed
         };
-        setClients(prevClients => [...prevClients, newClient]); // Add the new client to the list
+        setClients(prevClients => [...prevClients, newClient]); 
+        // Add the new client to the list
+
         setShowAddNewClientCard(false); // Close the modal after successful submission
     };
 
@@ -175,39 +177,40 @@ const ClientManagementPage: React.FC = () => {
     };
 
     return (
-        <div className='p-6'>
+        <div className='w-full h-screen bg-gray-100'>
             {/* Search and Add New Client Button Row */}
-            <div className="flex justify-between items-center mb-4">
-                <div className="relative w-64">
-                    <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                        <MagnifyingGlassIcon />
-                    </span>
+            <div className="flex justify-between items-center m-6 p-6">
+                <div className="relative w-64  text-gray-500">      
                     <Input
+                    className='rounded-3xl bg-white border-white'
                         type="text"
                         placeholder="Search clients..."
-                        className="pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        // className="pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         value={clientSearchQuery}
                         onChange={(e) => setClientSearchQuery(e.target.value)}
                     />
+                     <span className="absolute inset-y-0 right-0 pr-3 flex items-center ">
+                        <MagnifyingGlassIcon />
+                    </span>
                 </div>
                 <div>
-                    <Button onClick={() => setShowAddNewClientCard(true)}>+ New Client</Button>
+                    <Button className='bg-[#2B5BD4] border-blue-600 text-white rounded-3xl' onClick={() => setShowAddNewClientCard(true)}>+ New Client</Button>
                 </div>
             </div>
 
             {/* Export and Print Buttons Row */}
-            <div className='flex justify-end gap-5 mb-6'>
+            <div className='flex justify-end gap-5 mb-6 m-6 p-6'>
                 {selectedClientIds.size > 0 && (
                      <Button onClick={handleExport} variant="outline">
                         Export Selected ({selectedClientIds.size})
                     </Button>
                 )}
-                <Button onClick={handleExport} variant="outline">Export All</Button>
-                <Button onClick={handlePrint} variant="outline">Print</Button>
+                <Button className="text-[#2B5BD4]" onClick={handleExport} variant="outline">Export All</Button>
+                <Button className="text-[#2B5BD4]" onClick={handlePrint} variant="outline">Print</Button>
             </div>
 
             {/* Clients Table Card */}
-            <Card>
+            <Card className='mx-6'>
                 <CardContent>
                     <Table>
                         <TableHeader>
@@ -281,6 +284,7 @@ const ClientManagementPage: React.FC = () => {
             {filteredClients.length > clientsPerPage && (
                 <div className="flex justify-between items-center space-x-2 mt-4">
                     <Button
+                        className='ml-6'
                         variant="outline"
                         onClick={handlePreviousPage}
                         disabled={currentPage === 1}
@@ -299,8 +303,8 @@ const ClientManagementPage: React.FC = () => {
                             </Button>
                         ))}
                     </div>
-                    <Button className='border-none'
-                        // variant="outline"
+                    <Button className=' mr-6'
+                        variant="outline"
                         onClick={handleNextPage}
                         disabled={currentPage === totalPages}
                     >

@@ -125,10 +125,6 @@ const ClientDetailPage: React.FC = () => {
         return <CasesTab clientId={clientData.id} />;
       case 'documents':
         return     <DocumentsTab clientId={currentClientId} /> ;
-      case 'communication':
-        return <div className="p-6 text-gray-700">Communication content for {clientData.name} goes here...</div>;
-      case 'invoices':
-        return <div className="p-6 text-gray-700">Invoices content for {clientData.name} goes here...</div>;
       default:
         return null;
     }
@@ -152,7 +148,7 @@ const ClientDetailPage: React.FC = () => {
         <main className="flex-grow bg-white rounded-lg shadow-md p-6">
           {/* Tabs Navigation */}
           <nav className="flex border-b border-gray-200 mb-6">
-            {['profile', 'cases', 'documents', 'communication', 'invoices'].map((tab) => (
+            {['profile', 'cases', 'documents'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}

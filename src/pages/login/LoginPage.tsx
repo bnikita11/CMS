@@ -8,6 +8,13 @@ import { InputUserIcon,LockIcon } from '@/assets/sidebar';
 import LeftSide from '@/components/ui/LeftSide';
 import { loginUser } from '@/Services/auth';
 import { AxiosError } from 'axios'; // ✅ Import this
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
 
 type Props = Record<string, never>;
@@ -15,6 +22,7 @@ type Props = Record<string, never>;
 const LoginPage: React.FC<Props> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [accountType,setAccountType]=useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,9 +36,13 @@ const LoginPage: React.FC<Props> = () => {
     setPassword(event.target.value);
   };
 
+  const handleAccountTypeChange=(value:string)=>{
+    setAccountType(value);
+  };
+
   
-  // const isLoggedIn = (event: React.FormEvent) => {
-  //   event.preventDefault();
+//   const isLoggedIn = (event: React.FormEvent) => {
+//     event.preventDefault();
 
 //   if (email === "abc@example.com" && password === "nikita@14581") {
 //     const userData = {
@@ -48,11 +60,11 @@ const LoginPage: React.FC<Props> = () => {
 const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await loginUser({ email, password });
+      const response = await loginUser({ email, password, accountType });
       const { token, user } = response.data;
 
       localStorage.setItem('token', token); // store token
-      dispatch(login({ name: user.name, email: user.email })); // update Redux state
+      dispatch(login({ name: user.name, email: user.email, accountType:user.accountType })); // update Redux state
       navigate("/dashboard"); // redirect
     }  catch (err: unknown) {
     const error = err as AxiosError<{ message: string }>;
@@ -78,6 +90,18 @@ const handleLogin = async (e: React.FormEvent) => {
         <div className="w-full max-w-md ">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#2B5BD4] mb-6 text-left">Sign in</h2>
           <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-2">
+                            <label htmlFor="accountType" className="block text-sm font-medium text-gray-900">Select Account Type</label>
+                            <Select onValueChange={handleAccountTypeChange} value={accountType}>
+                                <SelectTrigger className="w-full h-14">
+                                    <SelectValue placeholder="Select Account Type" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="corporate">Corporate</SelectItem>
+                                    <SelectItem value="individual">Individual</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-900">Email Address</label>
               <div className="relative">

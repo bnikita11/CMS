@@ -47,7 +47,7 @@ function App() {
                     <Route path="dashboard" element={<DashboardPage />} />
                     <Route path="user-management" element={<UserManagementPage/>} />
                     <Route path="client-management" element={<ClientManagementPage />} />
- <Route path="client-management/client-detail/:clientId" element={<ClientDetailPage/>} />                    <Route path="calendar" element={<Calendar />} />
+                    <Route path="client-management/client-detail/:clientId" element={<ClientDetailPage/>} />                    <Route path="calendar" element={<Calendar />} />
 
                     {/* Add other protected routes here */}
                 </Route>
